@@ -1,0 +1,16 @@
+{
+  "_readme": "Fill buy_zone [low, high] and target for each ticker. null = that rule is skipped. Engine re-reads this file every run, so edits go live on the next cron tick.",
+  "market_pulse": ["SPY", "QQQ"],
+  "alert_rules": { "big_move_pct": 4.0 },
+  "tickers": {
+    "NVDA": { "buy_zone": null, "target": null, "notes": "" },
+    "AMD":  { "buy_zone": null, "target": null, "notes": "" },
+    "MSFT": { "buy_zone": null, "target": null, "notes": "" },
+    "AAPL": { "buy_zone": null, "target": null, "notes": "" },
+    "ADBE": { "buy_zone": null, "target": null, "notes": "" },
+    "NFLX": { "buy_zone": null, "target": null, "notes": "" },
+    "SPCX": { "buy_zone": null, "target": null, "notes": "SpaceX — IPO Jun 2026, young listing so 200W MA is partial" },
+    "RDW":  { "buy_zone": null, "target": null, "notes": "Redwire — space infra" },
+    "NVTS": { "buy_zone": null, "target": null, "notes": "Navitas — GaN power semis" }
+  }
+}
