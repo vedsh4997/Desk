@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Desk — market brief</title>
+
+<!-- Add-to-home-screen: opens fullscreen like an app -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Desk" />
+<meta name="theme-color" content="#0E1420" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#0E1420; --surface:#151D2C; --surface-2:#1B2436; --border:#26334A;
+    --text:#E8EDF5; --muted:#8A99B0; --faint:#5C6B82;
+    --gain:#3DDC97; --gain-dim:#1c5a45; --loss:#FF6B7A; --loss-dim:#5e2833;
+    --amber:#F5B942; --amber-dim:#5a4620; --blue:#7CA9FF;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --display:'Archivo',var(--sans);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--sans);
+    line-height:1.5; padding:env(safe-area-inset-top) 0 48px;
+    background-image:radial-gradient(1200px 600px at 80% -10%, #16233a55, transparent);
+    min-height:100vh;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:20px 18px}
+
+  /* header */
+  header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;margin-bottom:6px}
+  .brand{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.02em}
+  .brand .dot{color:var(--amber)}
+  .stamp{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .refresh{margin-left:10px;background:none;border:1px solid var(--border);color:var(--muted);
+    font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:6px;cursor:pointer;transition:.15s}
+  .refresh:hover{border-color:var(--blue);color:var(--blue)}
+  .refresh:active{transform:scale(.96)}
+
+  /* market pulse strip */
+  .pulse{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:13px;margin:14px 0 26px;padding:11px 14px;
+    background:var(--surface);border:1px solid var(--border);border-radius:10px}
+  .pulse .idx{color:var(--muted)}
+  .pulse .idx b{color:var(--text);font-weight:600;margin-right:5px}
+  .regime{margin-left:auto;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    padding:3px 9px;border-radius:20px;font-weight:600}
+  .regime.risk-off{color:var(--loss);background:var(--loss-dim)}
+  .regime.risk-on{color:var(--gain);background:var(--gain-dim)}
+
+  /* section label */
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--border)}
+
+  /* ==== SIGNATURE: diverging movers ==== */
+  .movers{margin-bottom:34px}
+  .mv-row{display:grid;grid-template-columns:1fr 46px 1fr;align-items:center;
+    height:34px;position:relative}
+  .mv-spine{position:absolute;left:calc(50% );top:0;bottom:0;width:1px;background:var(--border);z-index:0}
+  .mv-bar{height:22px;position:relative;z-index:1}
+  .mv-bar.neg{grid-column:1;justify-self:end;border-radius:5px 0 0 5px;
+    background:linear-gradient(90deg,var(--loss-dim),var(--loss));box-shadow:0 0 18px -6px var(--loss)}
+  .mv-bar.pos{grid-column:3;justify-self:start;border-radius:0 5px 5px 0;
+    background:linear-gradient(90deg,var(--gain),var(--gain-dim));box-shadow:0 0 18px -6px var(--gain)}
+  .mv-tick{grid-column:2;text-align:center;font-family:var(--mono);font-weight:600;font-size:12px;z-index:2}
+  .mv-pct{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);
+    font-size:12px;font-weight:600;white-space:nowrap}
+  .mv-bar.neg .mv-pct{right:calc(100% + 8px);color:var(--loss)}
+  .mv-bar.pos .mv-pct{left:calc(100% + 8px);color:var(--gain)}
+  .mv-fill{position:absolute;inset:0;border-radius:inherit;transform-origin:var(--origin);
+    transform:scaleX(0);animation:grow .7s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes grow{to{transform:scaleX(1)}}
+
+  /* analyst take */
+  .take{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);
+    border-radius:10px;padding:18px 20px;margin-bottom:34px}
+  .take h3{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--amber);margin-bottom:10px;font-weight:600}
+  .take p{font-size:14.5px;color:#D5DEEC;margin-bottom:9px}
+  .take .watch{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:12px;
+    padding-top:12px;border-top:1px dashed var(--border)}
+  .take .watch b{color:var(--text)}
+
+  /* ticker grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;
+    transition:border-color .18s,transform .18s}
+  .card:hover{border-color:#31425f;transform:translateY(-2px)}
+  .card.inzone{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber-dim),0 8px 30px -12px var(--amber)}
+  .c-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px}
+  .c-tick{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em}
+  .c-zone-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--amber);background:var(--amber-dim);padding:3px 7px;border-radius:5px;font-weight:600}
+  .c-price{font-family:var(--mono);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+  .c-chg{font-family:var(--mono);font-size:13px;font-weight:600;margin-left:8px}
+  .up{color:var(--gain)} .down{color:var(--loss)}
+
+  .zonebar{margin:14px 0 4px;height:6px;background:var(--surface-2);border-radius:4px;position:relative}
+  .zonebar .range{position:absolute;top:0;bottom:0;background:var(--amber-dim);border-radius:4px}
+  .zonebar .mark{position:absolute;top:-3px;width:2px;height:12px;background:var(--text);border-radius:2px}
+  .zonebar.nozone{opacity:.35}
+  .zonelabel{font-family:var(--mono);font-size:10.5px;color:var(--faint);display:flex;justify-content:space-between}
+
+  .c-meta{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:10.5px;color:var(--muted);background:var(--surface-2);
+    border:1px solid var(--border);padding:4px 8px;border-radius:6px}
+  .chip b{color:var(--text);font-weight:600}
+  .chip .g{color:var(--gain)} .chip .r{color:var(--loss)}
+  .chip.er b{color:var(--blue)}
+
+  .news{font-size:12px;color:var(--muted);margin-top:12px;padding-top:11px;border-top:1px solid var(--border);
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+  footer{text-align:center;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:38px}
+  .sampletag{color:var(--amber);border:1px dashed var(--amber-dim);border-radius:6px;padding:3px 8px;display:inline-block}
+
+  @media (max-width:560px){
+    .brand{font-size:22px}
+    .mv-row{grid-template-columns:1fr 42px 1fr}
+    .grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .mv-fill{animation:none;transform:scaleX(1)}
+    .card,.refresh{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">Desk<span class="dot">.</span></div>
+    <div style="display:flex;align-items:center">
+      <span class="stamp" id="stamp">—</span>
+      <button class="refresh" id="refreshBtn">↻ refresh</button>
+    </div>
+  </header>
+
+  <div class="pulse" id="pulse"></div>
+
+  <section class="movers">
+    <div class="eyebrow">Today&rsquo;s movers</div>
+    <div id="moversBody"></div>
+  </section>
+
+  <section class="take" id="take"></section>
+
+  <section>
+    <div class="eyebrow">Watchlist</div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>
+    <span class="sampletag">sample data — wire data.json to go live</span>
+    <div style="margin-top:10px">Desk &middot; personal market brief</div>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   DATA — shape matches what engine.py will write to data.json.
+   To go live later: DATA = await (await fetch('data.json')).json();
+   Prices below are tonight's real closes (Wed Jul 29, 2026).
+   buy_zone/target are ILLUSTRATIVE so you can see the UI states.
+   ============================================================ */
+const DATA = {
+  generated: "Wed Jul 29, 2026 · 11:22 PM CT",
+  pulse: [ {sym:"SPY", pct:-1.5}, {sym:"QQQ", pct:-2.0} ],
+  regime: "risk-off",
+  take: {
+    body: [
+      "Broad risk-off session. SPY -1.5%, QQQ -2.0%, Nasdaq tipping into correction as the AI trade unwound on soft SK Hynix results — NVDA -3.6%, AMD -5.5% led the semis lower.",
+      "ADBE bucked the tape at +5.7%, the lone green name of size. Small-caps took the brunt: RDW -9.2%, NVTS gave back part of an earlier double-digit drop."
+    ],
+    watch: "MSFT reports tonight and AAPL tomorrow — the two heaviest catalysts on your list. NVDA sits inside your 180–195 zone; watch 180 as the line that holds or breaks."
+  },
+  tickers: [
+    {sym:"NVDA", price:190.01, pct:-3.6, ma200:75,  er:"2026-08-26", zone:[180,195], target:220, lo52:98,  hi52:195, news:"Tech stocks: Microsoft, Meta, Qualcomm report as chip stocks struggle"},
+    {sym:"AMD",  price:429.56, pct:-5.5, ma200:161, er:"2026-08-04", zone:[380,410], target:480, lo52:90,  hi52:440, news:"Nvidia, Micron, AMD sink after SK Hynix results fail to impress; AI trade unwinds"},
+    {sym:"MSFT", price:390.54, pct:-0.7, ma200:1,   er:"2026-07-29", zone:null,      target:null,lo52:355, hi52:470, news:"Microsoft's Q4 results are 'narrative changing,' one analyst says"},
+    {sym:"AAPL", price:338.19, pct:-0.6, ma200:61,  er:"2026-07-30", zone:null,      target:null,lo52:200, hi52:345, news:"Big Tech earnings meet IPO buzz: what to watch Thursday"},
+    {sym:"ADBE", price:263.43, pct:5.7,  ma200:-37, er:"2026-09-10", zone:[250,275], target:300, lo52:240, hi52:420, news:"Nasdaq enters correction as Fed decision piques inflation concerns — ADBE in focus"},
+    {sym:"NFLX", price:73.63,  pct:1.7,  ma200:3,   er:"2026-10-20", zone:null,      target:null,lo52:55,  hi52:90,  news:"Sector update: consumer stocks mixed late afternoon"},
+    {sym:"SPCX", price:112.55, pct:-3.3, ma200:null,er:"2026-08-04", zone:[105,120], target:150, lo52:122, hi52:225, news:"SpaceX stock sags again to a new low as Q2 earnings approach"},
+    {sym:"RDW",  price:7.78,   pct:-9.2, ma200:4,   er:"2026-08-05", zone:[7.00,8.00],target:11, lo52:6.5, hi52:22,  news:"Archer Aviation vs. Redwire: which aerospace stock is the better buy in 2026?"},
+    {sym:"NVTS", price:9.73,   pct:-2.7, ma200:43,  er:"2026-07-27", zone:null,      target:null,lo52:5.2, hi52:14,  news:"Why Navitas Semiconductor stock plummeted 12% today"}
+  ]
+};
+
+const TODAY = new Date("2026-07-29T23:22:00");
+const $ = (s,el=document)=>el.querySelector(s);
+const pctTxt = p => (p>=0?"+":"") + p.toFixed(1) + "%";
+const cls = p => p>=0 ? "up" : "down";
+
+function daysUntil(iso){
+  const d = new Date(iso+"T16:00:00");
+  const n = Math.round((d - TODAY)/86400000);
+  if (n < 0)  return "reported";
+  if (n === 0) return "today";
+  if (n === 1) return "tomorrow";
+  return n + "d";
+}
+
+function renderPulse(){
+  const el = $("#pulse");
+  const idx = DATA.pulse.map(p =>
+    `<span class="idx"><b>${p.sym}</b><span class="${cls(p.pct)}">${pctTxt(p.pct)}</span></span>`
+  ).join("");
+  const r = DATA.regime==="risk-off" ? "risk-off" : "risk-on";
+  el.innerHTML = idx + `<span class="regime ${r}">${DATA.regime.replace("-"," ")}</span>`;
+}
+
+function renderMovers(){
+  const rows = [...DATA.tickers].sort((a,b)=>b.pct-a.pct); // gainers top
+  const max = Math.max(...rows.map(t=>Math.abs(t.pct))) || 1;
+  $("#moversBody").innerHTML = rows.map(t=>{
+    const pos = t.pct >= 0;
+    const w = (Math.abs(t.pct)/max) * 100;
+    const origin = pos ? "left" : "right";
+    return `<div class="mv-row">
+      <div class="mv-spine"></div>
+      ${!pos ? `<div class="mv-bar neg" style="width:${w}%">
+          <div class="mv-fill" style="--origin:${origin};background:inherit;border-radius:inherit"></div>
+          <span class="mv-pct">${pctTxt(t.pct)}</span></div>` : `<div style="grid-column:1"></div>`}
+      <div class="mv-tick">${t.sym}</div>
+      ${pos ? `<div class="mv-bar pos" style="width:${w}%">
+          <div class="mv-fill" style="--origin:${origin};background:inherit;border-radius:inherit"></div>
+          <span class="mv-pct">${pctTxt(t.pct)}</span></div>` : `<div style="grid-column:3"></div>`}
+    </div>`;
+  }).join("");
+}
+
+function renderTake(){
+  const t = DATA.take;
+  $("#take").innerHTML =
+    `<h3>Analyst take</h3>` +
+    t.body.map(p=>`<p>${p}</p>`).join("") +
+    `<div class="watch">📌 <b>Watch:</b> ${t.watch}</div>`;
+}
+
+function zoneBar(t){
+  if(!t.zone){
+    return `<div class="zonebar nozone"><div class="range" style="left:0;right:0"></div></div>
+      <div class="zonelabel"><span>no buy zone set</span><span>—</span></div>`;
+  }
+  const [lo,hi] = t.zone;
+  const pad = (hi-lo)*1.4 || 1;
+  const min = lo - pad, max = hi + pad, span = max-min;
+  const L = ((lo-min)/span)*100, W = ((hi-lo)/span)*100;
+  const M = Math.min(100, Math.max(0, ((t.price-min)/span)*100));
+  return `<div class="zonebar">
+      <div class="range" style="left:${L}%;width:${W}%"></div>
+      <div class="mark" style="left:${M}%"></div>
+    </div>
+    <div class="zonelabel"><span>$${lo.toFixed(2)}</span>
+      <span>zone${t.target?` · tgt $${t.target}`:""}</span><span>$${hi.toFixed(2)}</span></div>`;
+}
+
+function renderGrid(){
+  $("#grid").innerHTML = DATA.tickers.map(t=>{
+    const inzone = t.zone && t.price>=t.zone[0] && t.price<=t.zone[1];
+    const ma = t.ma200===null
+      ? `<span class="chip">200W <b>—</b></span>`
+      : `<span class="chip">200W <b class="${t.ma200>=0?'g':'r'}">${t.ma200>=0?'+':''}${t.ma200}%</b></span>`;
+    return `<div class="card ${inzone?'inzone':''}">
+      <div class="c-top">
+        <span class="c-tick">${t.sym}</span>
+        ${inzone?`<span class="c-zone-tag">in buy zone</span>`:``}
+      </div>
+      <div><span class="c-price">$${t.price.toFixed(2)}</span><span class="c-chg ${cls(t.pct)}">${pctTxt(t.pct)}</span></div>
+      ${zoneBar(t)}
+      <div class="c-meta">
+        ${ma}
+        <span class="chip er">ER <b>${daysUntil(t.er)}</b></span>
+      </div>
+      <div class="news">${t.news}</div>
+    </div>`;
+  }).join("");
+}
+
+function render(){
+  $("#stamp").textContent = DATA.generated;
+  renderPulse(); renderMovers(); renderTake(); renderGrid();
+}
+render();
+
+$("#refreshBtn").addEventListener("click", ()=>{
+  // With sample data this just replays the animation.
+  // Live version: DATA = await (await fetch('data.json?t='+Date.now())).json(); render();
+  renderMovers();
+  const b=$("#refreshBtn"); b.textContent="↻ refreshed"; setTimeout(()=>b.textContent="↻ refresh",1200);
+});
+</script>
+</body>
+</html>
