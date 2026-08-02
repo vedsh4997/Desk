@@ -1,0 +1,43 @@
+flowchart TD
+    WL["📋 watchlist.json<br/>your tickers · buy zones · targets"]
+
+    subgraph SCHED["⏰ SCHEDULER — GitHub Actions cron"]
+        S1["8:15 AM CT<br/>morning brief"]
+        S2["every 30 min<br/>market hours · scan"]
+        S3["8:30 PM CT<br/>evening wrap"]
+    end
+
+    subgraph DATA["📡 1 · DATA LAYER"]
+        D1["yfinance<br/>price · volume · 5y weekly"]
+        D2["Yahoo headlines<br/>per ticker"]
+        D3["earnings calendar"]
+    end
+
+    subgraph RULES["⚙️ 2 · RULES ENGINE"]
+        R1["buy-zone entry"]
+        R2["target hit"]
+        R3["big daily move ≥ 4%"]
+        R4["200-week MA cross"]
+        R5["state.json<br/>no duplicate alerts"]
+    end
+
+    subgraph BRAIN["🧠 3 · ANALYST BRAIN — Claude API"]
+        B1["senior-PM persona<br/>why it moved · scenarios · levels"]
+        B2["📌 Watch list<br/>tomorrow's catalysts"]
+    end
+
+    subgraph OUT["📱 4 · DELIVERY"]
+        O1["ntfy.sh push<br/>Robinhood-style alerts"]
+        O2["GitHub Pages dashboard<br/>(Weekend 2)"]
+    end
+
+    S1 --> DATA
+    S2 --> DATA
+    S3 --> DATA
+    WL --> RULES
+    DATA --> RULES
+    RULES -- "rule fired" --> O1
+    DATA --> BRAIN
+    RULES --> BRAIN
+    BRAIN -- "brief / wrap" --> O1
+    BRAIN -.-> O2
