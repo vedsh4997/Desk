@@ -1,0 +1,172 @@
+{
+  "generated": "Sun Sep 27, 2026 - 10:14 PM CT",
+  "pulse": [
+    {
+      "sym": "SPY",
+      "pct": 0.5
+    },
+    {
+      "sym": "QQQ",
+      "pct": 0.5
+    }
+  ],
+  "regime": "risk-on",
+  "take": {
+    "body": [
+      "Live data below. Add ANTHROPIC_API_KEY in repo secrets to turn on the analyst voice that reads the tape and connects the dots."
+    ],
+    "watch": ""
+  },
+  "active": [
+    {
+      "sym": "NVDA",
+      "price": 225.07,
+      "pct": 0.2,
+      "ma200": 93,
+      "er": "2026-11-17",
+      "zone": null,
+      "target": null,
+      "lo52": 164.79,
+      "hi52": 235.2,
+      "news": "X-Energy vs. GE Vernova: Is the New IPO the Better Buy?"
+    },
+    {
+      "sym": "AMD",
+      "price": 630.63,
+      "pct": 0.2,
+      "ma200": 245,
+      "er": "2026-11-03",
+      "zone": null,
+      "target": null,
+      "lo52": 159.46,
+      "hi52": 630.63,
+      "news": "AMD Stock And 2 US AI Infrastructure Plays Investors Are Watching"
+    },
+    {
+      "sym": "MSFT",
+      "price": 516.17,
+      "pct": 3.7,
+      "ma200": 30,
+      "er": "2026-10-28",
+      "zone": null,
+      "target": null,
+      "lo52": 352.17,
+      "hi52": 537.65,
+      "news": "The AI gold rush is fueling a record tech bond boom: Chart of the Day"
+    },
+    {
+      "sym": "AAPL",
+      "price": 341.07,
+      "pct": 1.5,
+      "ma200": 57,
+      "er": "2026-10-29",
+      "zone": null,
+      "target": null,
+      "lo52": 244.37,
+      "hi52": 341.07,
+      "news": "Jim Cramer Names His \u2018Sacred Stocks' and Why He Won't Sell Them"
+    },
+    {
+      "sym": "ADBE",
+      "price": 235.47,
+      "pct": -1.4,
+      "ma200": -43,
+      "er": "2026-12-09",
+      "zone": null,
+      "target": null,
+      "lo52": 193.41,
+      "hi52": 360.37,
+      "news": "Adobe Stock And 2 Other AI Stocks To Own"
+    },
+    {
+      "sym": "NFLX",
+      "price": 71.15,
+      "pct": -0.8,
+      "ma200": -3,
+      "er": "2026-10-20",
+      "zone": null,
+      "target": null,
+      "lo52": 67.6,
+      "hi52": 124.14,
+      "news": "Netflix (NFLX)\u2019s Sports Bet Just Got More Specific. Is that Enough to Move the Needle?"
+    },
+    {
+      "sym": "SPCX",
+      "price": 148.68,
+      "pct": 0.4,
+      "ma200": null,
+      "er": "2026-11-03",
+      "zone": null,
+      "target": null,
+      "lo52": 108.27,
+      "hi52": 211.39,
+      "news": "Dow Jones Futures Fall, Oil Prices Rise Amid Trump Iran Comments; Micron, SpaceX, Tesla Eye Buy Points"
+    },
+    {
+      "sym": "RDW",
+      "price": 11.62,
+      "pct": 0.2,
+      "ma200": 48,
+      "er": "2026-11-04",
+      "zone": null,
+      "target": null,
+      "lo52": 5.06,
+      "hi52": 25.9,
+      "news": "Is Redwire (RDW) A Bargain Following Its NITE STAR Contract Win?"
+    },
+    {
+      "sym": "NVTS",
+      "price": 12.2,
+      "pct": 3.0,
+      "ma200": 70,
+      "er": "2026-11-02",
+      "zone": null,
+      "target": null,
+      "lo52": 6.43,
+      "hi52": 31.79,
+      "news": "Magnachip Shares Rise 14% After Securing $5 Million Investment From Navitas"
+    }
+  ],
+  "longterm": [
+    {
+      "sym": "SCHD",
+      "type": "etf",
+      "price": 33.21,
+      "pct": 0.3,
+      "yield": 3.0,
+      "annual_div": null,
+      "frequency": "quarterly",
+      "ex_div": null,
+      "payout_ratio": null,
+      "growth_streak": 14,
+      "news": "SCHD Is Up 20% and Offers Investors a Compelling Yield. But These 3 Dividend Stocks Could Be Even Better Buys Now."
+    },
+    {
+      "sym": "O",
+      "type": "reit",
+      "price": 55.54,
+      "pct": 0.2,
+      "yield": 5.87,
+      "annual_div": 3.26,
+      "frequency": "monthly",
+      "ex_div": "2026-09-30",
+      "payout_ratio": 2.364,
+      "growth_streak": 1,
+      "news": "How to Build $11,300 a Month in Dividend Income From Three Income Buckets"
+    },
+    {
+      "sym": "PEP",
+      "type": "stock",
+      "price": 128.63,
+      "pct": 0.4,
+      "yield": 4.6,
+      "annual_div": 5.92,
+      "frequency": "quarterly",
+      "ex_div": "2026-09-04",
+      "payout_ratio": 0.753,
+      "growth_streak": 27,
+      "news": "PepsiCo (PEP) Price Rises For Chips And Soda Put 2027 In Focus"
+    }
+  ],
+  "dead": []
+}

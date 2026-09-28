@@ -1,16 +1,21 @@
 {
-  "_readme": "Fill buy_zone [low, high] and target for each ticker. null = that rule is skipped. Engine re-reads this file every run, so edits go live on the next cron tick.",
+  "_readme": "Two buckets. ACTIVE = trading names (buy_zone [low,high] + target drive alerts; null skips). LONGTERM = income names (type: etf/reit/stock controls how dividend safety is shown).",
   "market_pulse": ["SPY", "QQQ"],
   "alert_rules": { "big_move_pct": 4.0 },
-  "tickers": {
+  "active": {
     "NVDA": { "buy_zone": null, "target": null, "notes": "" },
     "AMD":  { "buy_zone": null, "target": null, "notes": "" },
     "MSFT": { "buy_zone": null, "target": null, "notes": "" },
     "AAPL": { "buy_zone": null, "target": null, "notes": "" },
     "ADBE": { "buy_zone": null, "target": null, "notes": "" },
     "NFLX": { "buy_zone": null, "target": null, "notes": "" },
-    "SPCX": { "buy_zone": null, "target": null, "notes": "SpaceX — IPO Jun 2026, young listing so 200W MA is partial" },
-    "RDW":  { "buy_zone": null, "target": null, "notes": "Redwire — space infra" },
-    "NVTS": { "buy_zone": null, "target": null, "notes": "Navitas — GaN power semis" }
+    "SPCX": { "buy_zone": null, "target": null, "notes": "SpaceX - young listing, partial 200W MA" },
+    "RDW":  { "buy_zone": null, "target": null, "notes": "Redwire - space infra" },
+    "NVTS": { "buy_zone": null, "target": null, "notes": "Navitas - GaN power semis" }
+  },
+  "longterm": {
+    "SCHD": { "type": "etf",   "notes": "Schwab US Dividend Equity - quarterly payer" },
+    "O":    { "type": "reit",  "notes": "Realty Income - monthly payer, Dividend Aristocrat" },
+    "PEP":  { "type": "stock", "notes": "PepsiCo - quarterly, Dividend King" }
   }
 }
