@@ -1,7 +1,6 @@
 {
-  "2026-10-30:NVDA:bigmove": true,
-  "2026-10-30:AMD:bigmove": true,
-  "2026-10-30:SPCX:bigmove": true,
-  "2026-10-30:RDW:bigmove": true,
-  "2026-10-30:NVTS:bigmove": true
+  "2026-11-02:AMD:bigmove": true,
+  "2026-11-02:RDW:bigmove": true,
+  "2026-11-02:RDW:ma200w": true,
+  "2026-11-02:NVTS:bigmove": true
 }
